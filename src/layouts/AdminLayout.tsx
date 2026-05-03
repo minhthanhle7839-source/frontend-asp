@@ -1,7 +1,7 @@
 "use client";
 
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Building2, Code, LayoutDashboard, Package, Tag, LogOut, ShoppingBag } from "lucide-react";
+import { Building2, Code, LayoutDashboard, Package, Tag, LogOut, ShoppingBag, Users } from "lucide-react";
 
 export const AdminLayout = () => {
     const location = useLocation();
@@ -12,7 +12,8 @@ export const AdminLayout = () => {
         { path: "/admin/categories", label: "Danh mục", icon: Tag },
         { path: "/admin/developers", label: "Nhà phát triển", icon: Code },
         { path: "/admin/publishers", label: "Nhà phát hành", icon: Building2 },
-        { path: '/admin/orders', label: 'Đơn hàng', icon: ShoppingBag }
+        { path: '/admin/orders', label: 'Đơn hàng', icon: ShoppingBag },
+        { path: '/admin/users', label: 'Người dùng', icon: Users }
     ];
 
     return (

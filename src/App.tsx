@@ -22,6 +22,9 @@ import Checkout from './pages/user/Checkout';
 import UserProductDetail from './pages/user/ProductDetail';
 import OrderList from './pages/admin/orders/OrderList';
 import Store from './pages/user/Store';
+import Register from './pages/auth/Register';
+import Profile from './pages/user/Profile';
+import UserList from './pages/admin/users/UserList';
 
 // Guard: chưa đăng nhập → về /login
 function RequireAuth() {
@@ -42,7 +45,7 @@ function App() {
       {/* ==================== GUEST ONLY ==================== */}
       <Route element={<GuestOnly />}>
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/register" element={<Register />} /> */}
+        <Route path="/register" element={<Register />} />
       </Route>
 
       {/* ==================== CLIENT ==================== */}
@@ -51,7 +54,7 @@ function App() {
       <Route path="/checkout/:productId" element={<Checkout />} />
       <Route path="/library" element={<Library />} />
       <Route path="/store" element={<Store />} />
-
+      <Route path="/profile" element={<Profile />} />
       {/* ==================== ADMIN (cần đăng nhập) ==================== */}
       <Route element={<RequireAuth />}>
         <Route path="/admin" element={<AdminLayout />}>
@@ -63,6 +66,7 @@ function App() {
             <Route path="add" element={<ProductForm />} />
             <Route path=":id" element={<ProductDetail />} />
             <Route path="edit/:id" element={<ProductEdit />} />
+
           </Route>
 
           {/* Categories */}
@@ -87,6 +91,7 @@ function App() {
             <Route path="edit/:id" element={<EntityForm type="publisher" />} />
           </Route>
           <Route path="orders" element={<OrderList />} />
+          <Route path="users" element={<UserList />} />
         </Route>
       </Route>
 
