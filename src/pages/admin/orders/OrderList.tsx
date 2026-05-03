@@ -1,7 +1,7 @@
 // src/pages/admin/orders/OrderList.tsx
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { ShoppingBag, User, CreditCard, Clock, CheckCircle, XCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShoppingBag, CreditCard, Clock, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 
 const API_URL = 'https://le-minh-thanh.onrender.com/api';
