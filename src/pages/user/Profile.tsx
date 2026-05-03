@@ -167,8 +167,10 @@ export default function Profile() {
                             <div className="text-center py-10 text-gray-700">
                                 <ShoppingBag size={32} className="mx-auto mb-3 opacity-30" />
                                 <p className="text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>Chưa có đơn hàng nào</p>
-                                <button onClick={() => navigate('/store')}
-                                    className="mt-3 text-blue-400 hover:text-blue-300 text-sm transition">
+                                <button
+                                    onClick={() => navigate('/store')}
+                                    className="mt-3 px-3 py-2 inline-block rounded-lg hover:bg-white/5 text-blue-400 hover:text-blue-300 text-sm transition"
+                                >
                                     Mua sắm ngay →
                                 </button>
                             </div>
@@ -190,8 +192,11 @@ export default function Profile() {
                                         </div>
                                     </div>
                                 ))}
-                                <button onClick={() => navigate('/library')}
-                                    className="w-full text-center text-sm text-gray-600 hover:text-gray-400 transition pt-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+
+                                <button
+                                    onClick={() => navigate('/library')}
+                                    className="w-full mt-2 px-3 py-2 text-center text-sm text-gray-600 hover:text-gray-400 hover:bg-white/5 rounded-lg transition"
+                                >
                                     Xem thư viện →
                                 </button>
                             </div>
