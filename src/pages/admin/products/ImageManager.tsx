@@ -3,11 +3,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { productService } from "../../../api/productService";
 import { Trash2, Upload, Loader2 } from "lucide-react";
-
+import { getImageUrl } from "../../../utils/image";
 interface Props {
-    productId?: number;                          // undefined = chế độ tạo mới
-    pendingFiles?: File[];                       // ảnh chờ upload (tạo mới)
-    onPendingChange?: (files: File[]) => void;   // callback cập nhật lên form cha
+    productId?: number;
+    pendingFiles?: File[];
+    onPendingChange?: (files: File[]) => void;
 }
 
 export const ImageManager = ({ productId, pendingFiles, onPendingChange }: Props) => {
@@ -111,7 +111,7 @@ export const ImageManager = ({ productId, pendingFiles, onPendingChange }: Props
                     {(images ?? []).map((img: any) => (
                         <div key={img.id} className="relative group">
                             <img
-                                src={`https://le-minh-thanh.onrender.com${img.imageUrl}`}
+                                src={getImageUrl(img.imageUrl)}
                                 className="h-24 w-full object-cover rounded-lg border"
                             />
                             <button

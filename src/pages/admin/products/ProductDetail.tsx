@@ -6,6 +6,7 @@ import { productService } from "../../../api/productService";
 import { ImageManager } from "./ImageManager";
 import { VersionManager } from "./VersionManager";
 import { ArrowLeft, Pencil } from "lucide-react";
+import { getImageUrl } from "../../../utils/image";
 
 export default function ProductDetail() {
     const { id } = useParams();
@@ -100,7 +101,7 @@ export default function ProductDetail() {
                                 {product.images.map((img: any) => (
                                     <img
                                         key={img.id}
-                                        src={`https://le-minh-thanh.onrender.com${img.imageUrl}`}
+                                        src={getImageUrl(img.imageUrl)}
                                         className="w-full h-24 object-cover rounded-lg border"
                                     />
                                 ))}
