@@ -17,10 +17,9 @@ export default function Library() {
         enabled: !!user
     });
 
-    const handleDownload = (versionId: number) => {
-        window.open(`${API_URL}/library/download/${versionId}?userId=${user.id}`, "_blank");
+    const handleDownload = (fileUrl: string) => {
+        window.open(fileUrl, "_blank");
     };
-
     if (!user) {
         navigate("/login");
         return null;
@@ -136,7 +135,7 @@ export default function Library() {
                                                 {versions.map((v: any) => (
                                                     <button
                                                         key={v.id}
-                                                        onClick={() => handleDownload(v.id)}
+                                                        onClick={() => handleDownload(v.fileUrl)}
                                                         className="w-full flex items-center justify-between bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-500/40 rounded-xl px-4 py-2.5 transition group/btn"
                                                     >
                                                         <div className="text-left">

@@ -25,12 +25,9 @@ export const VersionManager = ({
     const queryClient = useQueryClient();
 
     // ================= GET LIST =================
-    const { data: versions, isLoading } = useQuery({
+    const { data: versions = [], isLoading } = useQuery({
         queryKey: ["versions", productId],
-        queryFn: async () => {
-            const res = await productService.getVersions(productId);
-            return res;
-        },
+        queryFn: () => productService.getVersions(productId), // ✔️ KHÔNG .data
         enabled: !!productId
     });
 
@@ -66,29 +63,25 @@ export const VersionManager = ({
 
                     <input
                         placeholder="Tên version (vd: 1.0.0)"
-                        className="border p-3 rounded-lg w-44 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        className="border p-3 rounded-lg w-44"
                         value={pendingVersion ?? ""}
                         onChange={e => onPendingVersionChange?.(e.target.value)}
                     />
 
-                    <label className="flex items-center gap-2 cursor-pointer bg-green-50 border border-green-200 border-dashed px-4 py-3 rounded-xl hover:bg-green-100">
+                    <label className="flex items-center gap-2 cursor-pointer bg-green-50 border border-green-200 border-dashed px-4 py-3 rounded-xl">
                         <Upload size={18} className="text-green-500" />
                         <span className="text-green-600 text-sm">
-                            {pendingFile ? pendingFile.name : "Chọn file (Word/Excel)"}
+                            {pendingFile ? pendingFile.name : "Chọn file"}
                         </span>
                         <input
                             type="file"
                             hidden
-                            accept=".doc,.docx,.xls,.xlsx"
                             onChange={e => onPendingFileChange?.(e.target.files?.[0] ?? null)}
                         />
                     </label>
 
                     {pendingFile && (
-                        <button
-                            type="button"
-                            onClick={() => onPendingFileChange?.(null)}
-                        >
+                        <button onClick={() => onPendingFileChange?.(null)}>
                             <X size={16} className="text-red-500" />
                         </button>
                     )}
@@ -119,18 +112,17 @@ export const VersionManager = ({
                     placeholder="Version (vd: 1.0.0)"
                     value={version}
                     onChange={e => setVersion(e.target.value)}
-                    className="border px-3 py-2 rounded-xl w-40 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    className="border px-3 py-2 rounded-xl w-40"
                 />
 
-                <label className="flex items-center gap-2 cursor-pointer bg-green-50 border border-green-200 border-dashed px-4 py-2 rounded-xl hover:bg-green-100">
+                <label className="flex items-center gap-2 cursor-pointer bg-green-50 border border-green-200 border-dashed px-4 py-2 rounded-xl">
                     <Upload size={18} className="text-green-500" />
                     <span className="text-green-600 text-sm">
-                        {uploadMutation.isPending ? "Đang upload..." : "Upload file"}
+                        {uploadMutation.isPending ? "Đang upload..." : "Upload"}
                     </span>
                     <input
                         type="file"
                         hidden
-                        accept=".doc,.docx,.xls,.xlsx"
                         onChange={e => {
                             const file = e.target.files?.[0];
                             if (file) uploadMutation.mutate(file);
@@ -142,7 +134,7 @@ export const VersionManager = ({
 
             {/* List */}
             <div className="space-y-2">
-                {(versions as any[])?.map((v: any) => (
+                {versions.map((v: any) => (
                     <div
                         key={v.id}
                         className="flex justify-between items-center border p-3 rounded-xl"
@@ -159,9 +151,11 @@ export const VersionManager = ({
 
                         <div className="flex gap-2">
 
-                            {/* DOWNLOAD FIX */}
+                            {/* DOWNLOAD FIX CLOUDINARY */}
                             <a
-                                href={`https://le-minh-thanh.onrender.com${v.fileUrl}`}
+                                href={v.fileUrl.startsWith("http")
+                                    ? v.fileUrl
+                                    : `https://le-minh-thanh.onrender.com${v.fileUrl}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 bg-blue-50 text-blue-600 rounded"
@@ -171,7 +165,6 @@ export const VersionManager = ({
 
                             {/* DELETE */}
                             <button
-                                type="button"
                                 onClick={() => deleteMutation.mutate(v.id)}
                                 className="p-2 bg-red-50 text-red-600 rounded"
                             >
